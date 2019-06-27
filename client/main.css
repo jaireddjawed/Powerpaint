@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-image: url('img/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+canvas {
+  cursor: crosshair;
+  background-color: #fff;
+  margin: auto;
+  padding: 0;
+  display: block;
+}
+
+.content {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  transition: all 0.28s ease;
+}
+
+.content h1 {
+  font-size: 60px;
+  font-family: 'Lobster Two', cursive;
+  text-shadow: 2px 2px 2px blue;
+  color:white;
+  text-align: center;
+}
+
+.sidebar {
+  position: fixed; 
+  top: 0px;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background: #333;
+  padding-top: 60px;
+  transition: all 0.28s ease;
+  text-align: center;
+  color: #fff;
+}
+
+.sidebar .toggle {
+  position: absolute; 
+  right: 310px;
+  top: 0;
+  font-size: 50px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidebar .menu {
+  overflow-y: scroll;
+}
+
+.sidebar button {
+  background-color: gray;
+  margin: 5px auto;
+  text-align: center;
+  display: inline-block;
+  width: 160px;
+  height: 50px;
+  color: #fff;
+  border-radius: 3px; 
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background-color: darkgray;
+}
+
+.sidebar.slide {
+  right: 0px !important;
+}
+
+.draw-method label {
+  display: block;
+  margin: 10px auto;
+}
+
+#login-buttons {
+  color: white;
+}
