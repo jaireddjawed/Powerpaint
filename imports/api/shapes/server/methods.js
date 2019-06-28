@@ -22,7 +22,7 @@ Meteor.methods({
       const getDrawing = Drawings.findOne(drawingId);
 
       if (!getDrawing) {
-        throw new Meteor.Error('drawing-not-found', 'Drawing not found!');
+        throw new Meteor.Error('drawing-not-found', 'The drawing you\'re trying to edit does not exist!');
       }
 
       // If a drawing is private, the only user that can edit it is the creator
@@ -57,17 +57,23 @@ Meteor.methods({
   },
   'shapes.redo'(drawingId) {
     try {
-      const getLastDeletedShape = Shapes.findOne({ drawingId, isDeleted: true }, { deletedAt: -1 });
+      const getLastDeletedShape = Shapes.findOne({ drawingId, isDeleted: true }, { sort: { deletedAt: -1 } });
 
-      // republish the last deleted shape and remove all shapes that were
-      // deleted before that shape
+      /*
+       * republish the last deleted shape and remove all
+       * shapes that were deleted before that shape
+       */
+
       if (getLastDeletedShape) {
         Shapes.update(getLastDeletedShape._id, {
-          $set: { isDeleted: false },
+          $set: {
+            isDeleted: false,
+            deletedAt: new Date(),
+          },
         });
-
-        Shapes.remove({ drawingId, isDeleted: true });
       }
+
+      Shapes.remove({ drawingId, isDeleted: true });
     } catch (exception) {
       throw exception;
     }
