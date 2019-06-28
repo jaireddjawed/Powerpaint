@@ -30,7 +30,10 @@ Meteor.methods({
         throw new Meteor.Error('not-authorized', 'You\'re not authorized to edit this picture!');
       }
 
-      return Shapes.insert(shape);
+      return Shapes.insert({
+        ...shape,
+        createdAt: new Date(),
+      });
     } catch (exception) {
       throw exception;
     }
@@ -38,8 +41,19 @@ Meteor.methods({
   'shapes.undo'(drawingId) {
     check(drawingId, String);
 
-    console.log(Shapes.findOne({}, { sort: { createdAt: 1 } }))
-
+    try {
+      const getLastCreatedShape = Shapes.findOne({ drawingId, isDeleted: false }, { sort: { createdAt: -1 } });
+      if (getLastCreatedShape) {
+        Shapes.update(getLastCreatedShape._id, {
+          $set: {
+            isDeleted: true,
+            deletedAt: new Date(),
+          },
+        });
+      }
+    } catch (exception) {
+      throw exception;
+    }
   },
   'shapes.redo'(drawingId) {
     try {
