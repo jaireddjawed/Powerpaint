@@ -38,8 +38,8 @@ Shapes.schema = new SimpleSchema({
     label: 'Determines whether to stroke or fill a shape.',
   },
   createdAt: {
-    type: Number,
-    defaultValue: new Date().getTime(),
+    type: Date,
+    defaultValue: new Date(),
     label: 'The unix epoch of the time the shape was created.',
   },
   isDeleted: {

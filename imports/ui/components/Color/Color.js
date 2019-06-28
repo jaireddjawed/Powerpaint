@@ -3,7 +3,7 @@ import { Session } from 'meteor/session';
 import './Color.html';
 
 Template.Color.onRendered(() => {
-  Session.set('color', 'black');
+  Session.set('color', '#000000');
 });
 
 Template.Color.events({
