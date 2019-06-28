@@ -20,6 +20,6 @@ Template.ShapesMenu.helpers({
 Template.ShapesMenu.events({
   'click button': e => {
     // sets the current shape
-    Session.set('shape', e.target.id);
+    Session.set('shape', e.target.name);
   },
 });
