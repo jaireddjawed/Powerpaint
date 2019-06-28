@@ -42,7 +42,9 @@ Meteor.methods({
     check(drawingId, String);
 
     try {
-      const getLastCreatedShape = Shapes.findOne({ drawingId, isDeleted: false }, { sort: { createdAt: -1 } });
+      const getLastCreatedShape = Shapes.findOne({ drawingId, isDeleted: false },
+        { sort: { createdAt: -1 } });
+
       if (getLastCreatedShape) {
         Shapes.update(getLastCreatedShape._id, {
           $set: {
@@ -56,8 +58,11 @@ Meteor.methods({
     }
   },
   'shapes.redo'(drawingId) {
+    check(drawingId, String);
+
     try {
-      const getLastDeletedShape = Shapes.findOne({ drawingId, isDeleted: true }, { sort: { deletedAt: -1 } });
+      const getLastDeletedShape = Shapes.findOne({ drawingId, isDeleted: true },
+        { sort: { deletedAt: -1 } });
 
       /*
        * republish the last deleted shape and remove all

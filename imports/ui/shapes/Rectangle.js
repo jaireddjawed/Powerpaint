@@ -6,21 +6,21 @@ export default class Rectangle {
     this.endY = endY;
   }
 
-  setContext = ctx => {
+  setContext = (ctx) => {
     this.ctx = ctx;
   }
 
-  setColor = color => {
+  setColor = (color) => {
     this.color = color;
   }
 
-  setStrokeOrFilled = isFilled => {
+  setStrokeOrFilled = (isFilled) => {
     this.isFilled = isFilled;
   }
 
   draw = () => {
-    const width = this.endX - this.startX,
-         height = this.endY - this.startY;
+    const width = this.endX - this.startX;
+    const height = this.endY - this.startY;
 
     this.ctx.beginPath();
     this.ctx.rect(this.startX, this.startY, width, height);

@@ -8,18 +8,18 @@ const shapes = [
   'Line',
 ];
 
-Template.ShapesMenu.onRendered(() => {
+Template.shapesMenu.onRendered(() => {
   const [rectangle] = shapes;
   Session.set('shape', rectangle);
 });
 
-Template.ShapesMenu.helpers({
+Template.shapesMenu.helpers({
   shapes,
 });
 
-Template.ShapesMenu.events({
-  'click button': e => {
+Template.shapesMenu.events({
+  'click button': (event) => {
     // sets the current shape
-    Session.set('shape', e.target.name);
+    Session.set('shape', event.target.name);
   },
 });

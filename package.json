@@ -1,9 +1,17 @@
 {
-  "name": "PowerPaint",
+  "name": "powerpaint",
   "private": true,
   "scripts": {
     "start": "meteor run",
+    "lint": "eslint .",
+    "pretest": "npm run lint --silent",
     "test": "meteor test --once --driver-package meteortesting:mocha"
+  },
+  "eslintConfig": {
+    "extends": "@meteorjs/eslint-config-meteor",
+    "rules": {
+      "meteor/no-session": 0
+    }
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
@@ -12,6 +20,15 @@
     "simpl-schema": "^1.5.5"
   },
   "devDependencies": {
-    "chai": "^4.1.2"
+    "@meteorjs/eslint-config-meteor": "^1.0.5",
+    "babel-eslint": "^10.0.2",
+    "chai": "^4.1.2",
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-meteor": "^5.1.0",
+    "eslint-plugin-react": "^7.14.2"
   }
 }

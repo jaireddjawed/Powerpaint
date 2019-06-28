@@ -7,9 +7,20 @@ import Shapes from '../shapes';
 Meteor.publish('shapes', function(drawingId) {
   check(drawingId, Match.OneOf(String, null));
 
-  // const currentDrawing = Drawings.findOne({ _id: drawingId, userId: this.userId });
+  const currentDrawing = Drawings.findOne({
+    _id: drawingId,
+    $or: [
+      { isPublic: { $ne: false } },
+      { userId: this.userId },
+    ],
+  });
 
-    return Shapes.find({ drawingId, isDeleted: false });
+  if (currentDrawing) {
+    return [
+      Drawings.find(drawingId),
+      Shapes.find({ drawingId, isDeleted: false }),
+    ];
+  }
 
   return this.ready();
 });

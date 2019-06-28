@@ -7,13 +7,13 @@ import '../../ui/pages/Home/Home';
 FlowRouter.route('/', {
   name: 'Home',
   action: () => {
-    BlazeLayout.render('Main', { content: 'Home' });
+    BlazeLayout.render('main', { content: 'home' });
   },
 });
 
 FlowRouter.route('/drawing/:drawingId', {
   name: 'Drawing',
   action: () => {
-    BlazeLayout.render('Main', { content: 'Home' });
+    BlazeLayout.render('main', { content: 'home' });
   },
 });
