@@ -6,11 +6,11 @@ export default class Line {
     this.endY = endY;
   }
 
-  setContext = ctx => {
+  setContext = (ctx) => {
     this.ctx = ctx;
   }
 
-  setColor = color => {
+  setColor = (color) => {
     this.color = color;
   }
 

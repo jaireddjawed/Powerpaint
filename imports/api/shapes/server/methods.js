@@ -22,7 +22,7 @@ Meteor.methods({
       const getDrawing = Drawings.findOne(drawingId);
 
       if (!getDrawing) {
-        throw new Meteor.Error('drawing-not-found', 'Drawing not found!');
+        throw new Meteor.Error('drawing-not-found', 'The drawing you\'re trying to edit does not exist!');
       }
 
       // If a drawing is private, the only user that can edit it is the creator
@@ -30,7 +30,10 @@ Meteor.methods({
         throw new Meteor.Error('not-authorized', 'You\'re not authorized to edit this picture!');
       }
 
-      return Shapes.insert(shape);
+      return Shapes.insert({
+        ...shape,
+        createdAt: new Date(),
+      });
     } catch (exception) {
       throw exception;
     }
@@ -38,22 +41,44 @@ Meteor.methods({
   'shapes.undo'(drawingId) {
     check(drawingId, String);
 
-    console.log(Shapes.findOne({}, { sort: { createdAt: 1 } }))
+    try {
+      const getLastCreatedShape = Shapes.findOne({ drawingId, isDeleted: false },
+        { sort: { createdAt: -1 } });
 
+      if (getLastCreatedShape) {
+        Shapes.update(getLastCreatedShape._id, {
+          $set: {
+            isDeleted: true,
+            deletedAt: new Date(),
+          },
+        });
+      }
+    } catch (exception) {
+      throw exception;
+    }
   },
   'shapes.redo'(drawingId) {
-    try {
-      const getLastDeletedShape = Shapes.findOne({ drawingId, isDeleted: true }, { deletedAt: -1 });
+    check(drawingId, String);
 
-      // republish the last deleted shape and remove all shapes that were
-      // deleted before that shape
+    try {
+      const getLastDeletedShape = Shapes.findOne({ drawingId, isDeleted: true },
+        { sort: { deletedAt: -1 } });
+
+      /*
+       * republish the last deleted shape and remove all
+       * shapes that were deleted before that shape
+       */
+
       if (getLastDeletedShape) {
         Shapes.update(getLastDeletedShape._id, {
-          $set: { isDeleted: false },
+          $set: {
+            isDeleted: false,
+            deletedAt: new Date(),
+          },
         });
-
-        Shapes.remove({ drawingId, isDeleted: true });
       }
+
+      Shapes.remove({ drawingId, isDeleted: true });
     } catch (exception) {
       throw exception;
     }

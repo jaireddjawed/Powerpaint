@@ -6,15 +6,15 @@ export default class Circle {
     this.endY = endY;
   }
 
-  setContext = ctx => {
+  setContext = (ctx) => {
     this.ctx = ctx;
   }
 
-  setColor = color => {
+  setColor = (color) => {
     this.color = color;
   }
 
-  setStrokeOrFill = isFilled => {
+  setStrokeOrFill = (isFilled) => {
     this.isFilled = isFilled;
   }
 

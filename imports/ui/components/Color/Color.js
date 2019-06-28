@@ -2,17 +2,17 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import './Color.html';
 
-Template.Color.onRendered(() => {
-  Session.set('color', 'black');
+Template.color.onRendered(() => {
+  Session.set('color', '#000000');
 });
 
-Template.Color.events({
+Template.color.events({
   'change input[name="color"]': e => {
     Session.set('color', e.target.value);
   },
 });
 
-Template.Color.helpers({
+Template.color.helpers({
   color() {
     return Session.get('color');
   },

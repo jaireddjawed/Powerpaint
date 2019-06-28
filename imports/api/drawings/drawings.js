@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-export default Drawings = new Mongo.Collection('drawings');
+const Drawings = new Mongo.Collection('drawings');
 
 Drawings.schema = new SimpleSchema({
   userId: {
@@ -21,7 +21,10 @@ Drawings.schema = new SimpleSchema({
   createdAt: {
     type: Date,
     defaultValue: new Date(),
+    label: 'The date the drawing was created.',
   },
 });
 
 Drawings.attachSchema(Drawings.schema);
+
+export default Drawings;

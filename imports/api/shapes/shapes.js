@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-export default Shapes = new Mongo.Collection('shapes');
+const Shapes = new Mongo.Collection('shapes');
 
 Shapes.schema = new SimpleSchema({
   drawingId: {
@@ -38,9 +38,9 @@ Shapes.schema = new SimpleSchema({
     label: 'Determines whether to stroke or fill a shape.',
   },
   createdAt: {
-    type: Number,
-    defaultValue: new Date().getTime(),
-    label: 'The unix epoch of the time the shape was created.',
+    type: Date,
+    defaultValue: new Date(),
+    label: 'The date the shape was created.',
   },
   isDeleted: {
     type: Boolean,
@@ -55,3 +55,5 @@ Shapes.schema = new SimpleSchema({
 });
 
 Shapes.attachSchema(Shapes.schema);
+
+export default Shapes;
