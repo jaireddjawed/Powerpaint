@@ -1,3 +1,7 @@
 <template name="main">
-  {{ > Template.dynamic template=content }}
+  {{ > navigation }}
+  <div class="content">
+    <h1>PowerPaint!</h1>
+    {{ > Template.dynamic template=content }}
+  </div>
 </template>

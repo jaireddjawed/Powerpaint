@@ -19,7 +19,38 @@ Meteor.methods({
       throw exception;
     }
   },
-  'drawings.remove'() {
+  'drawings.toggleLock'(drawingId) {
+    check(drawingId, String);
 
+    try {
+      const drawing = Drawings.findOne(drawingId);
+
+      if (drawing && this.userId !== null && drawing.userId !== this.userId) {
+        throw new Meteor.Error('You cannot set this drawing to public/private!');
+      }
+
+      Drawings.update(drawingId, {
+        $set: {
+          isPublic: !drawing.isPublic,
+        },
+      });
+    } catch (exception) {
+      throw exception;
+    }
+  },
+  'drawings.remove'(drawingId) {
+    check(drawingId, String);
+
+    try {
+      const drawing = Drawings.findOne(drawingId);
+
+      if (drawing && this.userId !== null && drawing.userId !== this.userId) {
+        throw new Meteor.Error('You cannot remove a drawing someone else created!');
+      }
+
+      Drawings.remove(drawingId);
+    } catch (exception) {
+      throw exception;
+    }
   },
 });
