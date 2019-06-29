@@ -1,5 +1,9 @@
 <template name="navigation">
-    {{ > loginButtons }}
-    Your Drawings
-    <a id="download" style="color:wheat;cursor: pointer;">download</a>
+	<ul class="navigation">
+		<li>{{ > loginButtons }}</li>
+		{{#if currentUser}}
+			<li><a href="/drawings">Your Drawings</a></li>
+			<li><a href="#" class="download">Download</a></li>
+		{{/if}}
+	</ul>
 </template>

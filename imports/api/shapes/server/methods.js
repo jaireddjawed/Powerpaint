@@ -30,6 +30,10 @@ Meteor.methods({
         throw new Meteor.Error('not-authorized', 'You\'re not authorized to edit this picture!');
       }
 
+      // remove any deleted shapes so they're not
+      // shown when a user clicks redo
+      Shapes.remove({ drawingId, isDeleted: true });
+
       return Shapes.insert({
         ...shape,
         createdAt: new Date(),
@@ -73,12 +77,12 @@ Meteor.methods({
         Shapes.update(getLastDeletedShape._id, {
           $set: {
             isDeleted: false,
-            deletedAt: new Date(),
+          },
+          $unset: {
+            deletedAt: '',
           },
         });
       }
-
-      Shapes.remove({ drawingId, isDeleted: true });
     } catch (exception) {
       throw exception;
     }

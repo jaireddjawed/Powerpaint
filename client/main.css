@@ -14,6 +14,19 @@ canvas {
   display: block;
 }
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #cac4c4b9;
+  text-align: left;
+  padding: 8px;
+  background-color: #dddddd;
+}
+
 .content {
   display: inline-block;
   width: 100%;
@@ -31,6 +44,12 @@ canvas {
   text-shadow: 2px 2px 2px navy;
   color: #fff;
   text-align: center;
+}
+
+.content h4 {
+  color: #fff;
+  text-align: center;
+  font-size: 25px;
 }
 
 .sidebar {
@@ -85,6 +104,26 @@ canvas {
   margin: 10px auto;
 }
 
-#login-buttons {
-  color: white;
+.navigation {
+  list-style-type: none;
+}
+
+.navigation li {
+  float: left;
+}
+
+.navigation li a {
+  color: #fff;
+  padding: 5px;
+}
+
+#login-dropdown-list a {
+  color: #000;
+}
+
+.drawings {
+  padding-right:15px;
+  padding-left:15px;
+  margin-right:auto;
+  margin-left:auto;
 }

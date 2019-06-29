@@ -1,0 +1,39 @@
+<template name="drawings">
+  <h1>Your Drawings</h1>
+
+  <div class="drawings">
+    <button id="new-drawing">Create New Drawing</button>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Set to Public/Private</th>
+        <th>Delete</th>
+        <th>Date Created</th>
+      </tr>
+
+      {{#if Template.subscriptionsReady}}
+        {{#each drawings}}
+          <tr>
+            <td><a href="/drawing/{{_id}}">{{name}}</a></td>
+            <td>
+              <button value="{{_id}}" class="toggle-lock">
+                {{#if isPublic}}
+                  <i class="fa fa-unlock"></i> Public
+                {{else}}
+                  <i class="fa fa-lock"></i> Private
+                {{/if}}
+              </button>
+            </td>
+            <td>
+              <button value="{{_id}}" class="remove">
+                <i class="fa fa-remove"></i> Remove
+              </button>
+            </td>
+            <td>{{ formatDate createdAt }}</td>
+          </tr>
+        {{/each}}
+      {{/if}}
+    </table>
+  </div>
+</template>

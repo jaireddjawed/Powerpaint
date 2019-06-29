@@ -7,8 +7,8 @@ Template.color.onRendered(() => {
 });
 
 Template.color.events({
-  'change input[name="color"]': e => {
-    Session.set('color', e.target.value);
+  'change input[name="color"]': (event) => {
+    Session.set('color', event.target.value);
   },
 });
 

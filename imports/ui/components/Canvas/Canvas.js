@@ -5,7 +5,6 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Session } from 'meteor/session';
 import { Bert } from 'meteor/themeteorchef:bert';
 
-import Drawings from '../../../api/drawings/drawings';
 import Shapes from '../../../api/shapes/shapes';
 import Rectangle from '../../shapes/Rectangle';
 import Circle from '../../shapes/Circle';
@@ -15,10 +14,6 @@ import './Canvas.html';
 
 Template.canvas.onCreated(function() {
   this.coordinates = new ReactiveDict();
-  this.autorun(() => {
-    const drawingId = FlowRouter.getParam('drawingId');
-    this.subscribe('shapes', drawingId);
-  });
 });
 
 Template.canvas.onRendered(function() {
@@ -30,7 +25,6 @@ Template.canvas.onRendered(function() {
 
     // drawShape is kept in a function so it can be
     // reused for the current shape being drawn and previous ones
-
     const drawShape = (shape) => {
       if (shape.type === 'Rectangle') {
         const rectangle = new Rectangle(shape.startX, shape.startY, shape.endX, shape.endY);
@@ -52,6 +46,10 @@ Template.canvas.onRendered(function() {
       }
     };
 
+    Shapes.find({}).forEach((shape) => {
+      drawShape(shape);
+    });
+
     const { coordinates } = this;
     const startX = coordinates.get('startX');
     const startY = coordinates.get('startY');
@@ -68,20 +66,7 @@ Template.canvas.onRendered(function() {
       endX,
       endY,
     });
-
-    Shapes.find({}).forEach((shape) => {
-      drawShape(shape);
-    });
   });
-});
-
-Template.canvas.helpers({
-  drawingExists() {
-    // If the user is on the homepage, then they're getting started with creating a drawing
-    // no drawing will need to exist at the moment
-    if (FlowRouter.getRouteName() === 'Home') return true;
-    return FlowRouter.getRouteName() === 'Drawing' && Drawings.findOne();
-  },
 });
 
 let isMouseDown = false;
